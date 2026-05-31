@@ -1,3 +1,4 @@
+import { ThemeToggle } from '@/components/common/ThemeToggle';
 import { Screen } from '@/components/layout/Screen';
 import { Avatar, AvatarFallbackText, AvatarImage } from '@/components/ui/avatar';
 import { Button, ButtonText } from '@/components/ui/button';
@@ -41,6 +42,13 @@ export default function ProfileScreen() {
         {user?.interest ? (
           <Text className="text-center text-brand-soft">Interested in {user.interest}</Text>
         ) : null}
+
+        <VStack space="sm" className="mt-2 w-full">
+          <Text className="text-[11px] font-bold uppercase tracking-[2px] text-brand-muted">
+            Appearance
+          </Text>
+          <ThemeToggle />
+        </VStack>
 
         <Button
           action="negative"
