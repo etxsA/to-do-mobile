@@ -1,9 +1,13 @@
 import { Stack } from 'expo-router';
 
 /**
- * Authed area container. Phase 3 replaces this with the bottom-tab navigator;
- * for now it's a headerless stack so the placeholder home renders.
+ * Authed area stack. Holds the tab navigator plus full-screen pushed routes
+ * (list detail, create/edit modals) added in later phases.
  */
-export default function AppLayout() {
-  return <Stack screenOptions={{ headerShown: false }} />;
+export default function AppStackLayout() {
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="(tabs)" />
+    </Stack>
+  );
 }
