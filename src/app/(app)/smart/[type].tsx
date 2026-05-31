@@ -8,14 +8,15 @@ import { ErrorState } from '@/components/feedback/ErrorState';
 import { LoadingState } from '@/components/feedback/LoadingState';
 import { SwipeableTaskRow } from '@/components/tasks/SwipeableTaskRow';
 import { Heading } from '@/components/ui/heading';
-import { brand } from '@/constants/tokens';
 import { useAllTasks } from '@/hooks/useAllTasks';
+import { useThemeColors } from '@/hooks/useThemeColors';
 import { useDeleteTask, useToggleTaskGlobal } from '@/hooks/useTaskMutations';
 import { filterSmart, SMART_LISTS, type SmartListType } from '@/utils/smartLists';
 
 export default function SmartListScreen() {
   const { type } = useLocalSearchParams<{ type: SmartListType }>();
   const router = useRouter();
+  const colors = useThemeColors();
   const def = SMART_LISTS[type] ?? SMART_LISTS.all;
 
   const { tasks, isPending, isError, error, isRefetching, refetch } = useAllTasks();
@@ -28,7 +29,7 @@ export default function SmartListScreen() {
     <SafeAreaView edges={['top']} style={{ flex: 1 }} className="bg-brand-bg">
       <View className="flex-row items-center gap-3 px-5 py-3">
         <Pressable onPress={() => router.back()} hitSlop={10} testID="btn-back" accessibilityLabel="Back">
-          <MaterialIcons name="arrow-back" size={24} color={brand.ink} />
+          <MaterialIcons name="arrow-back" size={24} color={colors.ink} />
         </Pressable>
         <Heading size="xl" className="text-brand-ink">
           {def.title}

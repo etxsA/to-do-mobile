@@ -21,12 +21,14 @@ module.exports = {
       colors: {
         // EduTask brand palette (from Figma) — used directly for screen chrome.
         brand: {
-          bg: '#F9F9FF',
-          surface: '#FFFFFF',
-          border: '#E6E8F2',
-          ink: '#191C23',
-          muted: '#414754',
-          soft: '#64748B',
+          // Chrome colors are CSS-variable backed so they flip with light/dark mode.
+          bg: 'rgb(var(--color-brand-bg)/<alpha-value>)',
+          surface: 'rgb(var(--color-brand-surface)/<alpha-value>)',
+          border: 'rgb(var(--color-brand-border)/<alpha-value>)',
+          ink: 'rgb(var(--color-brand-ink)/<alpha-value>)',
+          muted: 'rgb(var(--color-brand-muted)/<alpha-value>)',
+          soft: 'rgb(var(--color-brand-soft)/<alpha-value>)',
+          // Accents are fixed across modes.
           primary: '#005BBF',
           primaryStrong: '#1D4ED8',
           primaryDark: '#1E40AF',

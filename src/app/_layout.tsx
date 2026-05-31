@@ -9,6 +9,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
 import { queryClient } from '@/lib/queryClient';
 import { useAuthStore } from '@/stores/authStore';
+import { useThemeStore } from '@/stores/themeStore';
 import '../global.css';
 
 // Keep the native splash up until we know whether there is a restored session,
@@ -18,6 +19,7 @@ void SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const status = useAuthStore((s) => s.status);
   const bootstrap = useAuthStore((s) => s.bootstrap);
+  const themeMode = useThemeStore((s) => s.mode);
 
   // Wire the http token bridge + restore the persisted Firebase session.
   useEffect(() => {
@@ -33,7 +35,7 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <QueryClientProvider client={queryClient}>
-          <GluestackUIProvider mode="light">
+          <GluestackUIProvider mode={themeMode}>
             <Stack screenOptions={{ headerShown: false }}>
               {/* Authed area */}
               <Stack.Protected guard={status === 'authed'}>
@@ -45,7 +47,7 @@ export default function RootLayout() {
                 <Stack.Screen name="register" />
               </Stack.Protected>
             </Stack>
-            <StatusBar style="dark" />
+            <StatusBar style="auto" />
           </GluestackUIProvider>
         </QueryClientProvider>
       </SafeAreaProvider>

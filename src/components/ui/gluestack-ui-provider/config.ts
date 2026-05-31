@@ -3,6 +3,13 @@ import { vars } from 'nativewind';
 
 export const config = {
   light: vars({
+    /* EduTask brand chrome (mode-aware) */
+    '--color-brand-bg': '249 249 255',
+    '--color-brand-surface': '255 255 255',
+    '--color-brand-border': '230 232 242',
+    '--color-brand-ink': '25 28 35',
+    '--color-brand-muted': '65 71 84',
+    '--color-brand-soft': '100 116 139',
     /* Brand blue ramp (EduTask) — primary-500 = #005BBF */
     '--color-primary-0': '239 246 255',
     '--color-primary-50': '219 234 254',
@@ -156,6 +163,13 @@ export const config = {
     '--color-indicator-error': '185 28 28',
   }),
   dark: vars({
+    /* EduTask brand chrome (dark) */
+    '--color-brand-bg': '11 18 32',
+    '--color-brand-surface': '22 30 46',
+    '--color-brand-border': '37 48 74',
+    '--color-brand-ink': '248 250 252',
+    '--color-brand-muted': '203 213 225',
+    '--color-brand-soft': '148 163 184',
     /* Brand blue ramp (dark mode) — lighter so it reads on dark surfaces */
     '--color-primary-0': '12 21 48',
     '--color-primary-50': '23 37 84',
