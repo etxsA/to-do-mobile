@@ -4,18 +4,20 @@ import { useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { AddFab } from '@/components/common/AddFab';
 import { ConfirmDialog } from '@/components/common/ConfirmDialog';
 import { ListIcon } from '@/components/common/ListIcon';
 import { EmptyState } from '@/components/feedback/EmptyState';
 import { ErrorState } from '@/components/feedback/ErrorState';
 import { LoadingState } from '@/components/feedback/LoadingState';
-import { TaskRow } from '@/components/tasks/TaskRow';
+import { SwipeableTaskRow } from '@/components/tasks/SwipeableTaskRow';
 import { Heading } from '@/components/ui/heading';
 import { Text } from '@/components/ui/text';
 import { VStack } from '@/components/ui/vstack';
 import { brand } from '@/constants/tokens';
 import { useTaskList } from '@/hooks/useTaskLists';
 import { useDeleteTaskList } from '@/hooks/useTaskListMutations';
+import { useDeleteTask, useToggleTaskCompleted } from '@/hooks/useTaskMutations';
 import { useTasksByList } from '@/hooks/useTasks';
 
 export default function ListDetailScreen() {
@@ -25,14 +27,16 @@ export default function ListDetailScreen() {
 
   const listQ = useTaskList(listId);
   const tasksQ = useTasksByList(listId);
-  const del = useDeleteTaskList();
+  const delList = useDeleteTaskList();
+  const toggle = useToggleTaskCompleted(listId);
+  const delTask = useDeleteTask();
   const [confirm, setConfirm] = useState(false);
 
   const color = listQ.data?.color || brand.primary;
 
-  const onDelete = async () => {
+  const onDeleteList = async () => {
     try {
-      await del.mutateAsync(listId);
+      await delList.mutateAsync(listId);
       setConfirm(false);
       router.back();
     } catch {
@@ -71,16 +75,20 @@ export default function ListDetailScreen() {
         <FlatList
           data={tasksQ.data ?? []}
           keyExtractor={(t) => String(t.id)}
-          renderItem={({ item }) => <TaskRow task={item} />}
-          contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 120, gap: 12 }}
+          renderItem={({ item }) => (
+            <SwipeableTaskRow
+              task={item}
+              onToggle={(completed) => toggle.mutate({ id: item.id, completed })}
+              onPress={() => router.push({ pathname: '/tasks/[id]/edit', params: { id: String(item.id) } })}
+              onDelete={() => delTask.mutate(item.id)}
+            />
+          )}
+          contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 140, gap: 12 }}
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={
             <VStack space="md" className="pb-3">
               <View className="flex-row items-center gap-3">
-                <View
-                  style={{ backgroundColor: color }}
-                  className="h-11 w-11 items-center justify-center rounded-xl"
-                >
+                <View style={{ backgroundColor: color }} className="h-11 w-11 items-center justify-center rounded-xl">
                   <ListIcon icon={listQ.data.icon} color="#FFFFFF" size={20} />
                 </View>
                 <Heading size="2xl" className="flex-1 text-brand-ink">
@@ -101,19 +109,28 @@ export default function ListDetailScreen() {
             !tasksQ.isPending && !tasksQ.isError ? (
               <EmptyState
                 title="No tasks yet"
-                subtitle="Tasks you add to this list will appear here."
+                subtitle="Add your first task to this list."
+                actionLabel="Add task"
+                onAction={() => router.push({ pathname: '/tasks/new', params: { listId: String(listId) } })}
               />
             ) : null
           }
         />
       )}
 
+      {listQ.data ? (
+        <AddFab
+          onPress={() => router.push({ pathname: '/tasks/new', params: { listId: String(listId) } })}
+          label="New task"
+        />
+      ) : null}
+
       <ConfirmDialog
         isOpen={confirm}
         title="Delete list?"
         message={`"${listQ.data?.name ?? 'This list'}" will be permanently deleted, along with any tasks not in another list.`}
-        loading={del.isPending}
-        onConfirm={onDelete}
+        loading={delList.isPending}
+        onConfirm={onDeleteList}
         onClose={() => setConfirm(false)}
       />
     </SafeAreaView>
