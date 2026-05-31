@@ -1,13 +1,16 @@
 import { Stack } from 'expo-router';
 
 /**
- * Authed area stack. Holds the tab navigator plus full-screen pushed routes
- * (list detail, create/edit modals) added in later phases.
+ * Authed area stack: the tab navigator plus full-screen / modal pushed routes
+ * (list detail, create/edit list). Task routes are added in Phase 5.
  */
 export default function AppStackLayout() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="lists/[id]/index" />
+      <Stack.Screen name="lists/new" options={{ presentation: 'modal' }} />
+      <Stack.Screen name="lists/[id]/edit" options={{ presentation: 'modal' }} />
     </Stack>
   );
 }
