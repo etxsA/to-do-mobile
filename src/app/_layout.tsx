@@ -33,7 +33,7 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <QueryClientProvider client={queryClient}>
-          <GluestackUIProvider mode="dark">
+          <GluestackUIProvider mode="light">
             <Stack screenOptions={{ headerShown: false }}>
               {/* Authed area */}
               <Stack.Protected guard={status === 'authed'}>
@@ -45,7 +45,7 @@ export default function RootLayout() {
                 <Stack.Screen name="register" />
               </Stack.Protected>
             </Stack>
-            <StatusBar style="light" />
+            <StatusBar style="dark" />
           </GluestackUIProvider>
         </QueryClientProvider>
       </SafeAreaProvider>

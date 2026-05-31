@@ -19,6 +19,22 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // EduTask brand palette (from Figma) — used directly for screen chrome.
+        brand: {
+          bg: '#F9F9FF',
+          surface: '#FFFFFF',
+          border: '#E6E8F2',
+          ink: '#191C23',
+          muted: '#414754',
+          soft: '#64748B',
+          primary: '#005BBF',
+          primaryStrong: '#1D4ED8',
+          primaryDark: '#1E40AF',
+          primarySoft: '#DBEAFE',
+          track: '#ECEDF7',
+          danger: '#BA1A1A',
+          success: '#006D2C',
+        },
         primary: {
           0: 'rgb(var(--color-primary-0)/<alpha-value>)',
           50: 'rgb(var(--color-primary-50)/<alpha-value>)',
