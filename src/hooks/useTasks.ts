@@ -1,7 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getTasksByList, getTodayTasks } from '@/services/task.service';
+import { getTask, getTasksByList, getTodayTasks } from '@/services/task.service';
 import { taskKeys } from '@/utils/queryKeys';
+
+/** Single task (edit screen). */
+export function useTask(id: number) {
+  return useQuery({
+    queryKey: taskKeys.detail(id),
+    queryFn: () => getTask(id),
+    enabled: Number.isFinite(id) && id > 0,
+  });
+}
 
 /** Incomplete tasks due today (Home "Due Today"). */
 export function useToday() {

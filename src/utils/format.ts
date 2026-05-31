@@ -21,6 +21,15 @@ export function isOverdue(iso?: string): boolean {
   return new Date(iso).getTime() < Date.now();
 }
 
+/** Serialize a Date to the backend's timezone-less local ISO ("YYYY-MM-DDTHH:mm:ss"). */
+export function toLocalIso(date: Date): string {
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return (
+    `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}` +
+    `T${pad(date.getHours())}:${pad(date.getMinutes())}:00`
+  );
+}
+
 export const PRIORITY_META: Record<Priority, { label: string; color: string; bg: string }> = {
   HIGH: { label: 'High', color: '#BA1A1A', bg: '#FEE2E2' },
   MEDIUM: { label: 'Medium', color: '#B45309', bg: '#FEF3C7' },
