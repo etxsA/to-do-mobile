@@ -1,0 +1,54 @@
+# ─────────────────────────────────────────────────────────────
+# CREDENTIALS / SECRETS — never commit (git repo is PUBLIC)
+# ─────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.keystore
+google-services.json
+GoogleService-Info.plist
+firebase-service-account*.json
+
+# ─────────────────────────────────────────────────────────────
+# Internal docs — local only, hold config/test creds, do NOT publish
+# ─────────────────────────────────────────────────────────────
+CLAUDE.md
+IMPLEMENTATION_PLAN.md
+API.md
+ARCHITECTURE.md
+FrontendDevInfo.md
+
+# ─────────────────────────────────────────────────────────────
+# Expo / React Native
+# ─────────────────────────────────────────────────────────────
+node_modules/
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+*.orig.*
+
+# Native
+ios/
+android/
+*.tgz
+
+# Metro
+.metro-health-check*
+
+# ─────────────────────────────────────────────────────────────
+# Tooling
+# ─────────────────────────────────────────────────────────────
+coverage/
+.DS_Store
+*.log
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+.idea/
+.vscode/
+.claude/
+
+# Codegraph index
+.codegraph/
+codegraph.db*
