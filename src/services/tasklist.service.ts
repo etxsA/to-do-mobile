@@ -26,6 +26,20 @@ export async function getTaskListsWithProgress(
   return data;
 }
 
+/** Page through every list the user owns (for client-side smart-list aggregation). */
+export async function getAllTaskLists(): Promise<TaskList[]> {
+  const all: TaskList[] = [];
+  let page = 1;
+  // Hard cap as a safety net against an unexpected hasMore loop.
+  for (let i = 0; i < 50; i += 1) {
+    const res = await getTaskLists(page);
+    all.push(...res.items);
+    if (!res.hasMore) break;
+    page += 1;
+  }
+  return all;
+}
+
 export async function getTaskList(id: number): Promise<TaskList> {
   const { data } = await http.get<TaskList>(`/tasklist/${id}`);
   return data;

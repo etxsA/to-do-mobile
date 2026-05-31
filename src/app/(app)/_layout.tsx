@@ -13,6 +13,7 @@ export default function AppStackLayout() {
       <Stack.Screen name="lists/[id]/edit" options={{ presentation: 'modal' }} />
       <Stack.Screen name="tasks/new" options={{ presentation: 'modal' }} />
       <Stack.Screen name="tasks/[id]/edit" options={{ presentation: 'modal' }} />
+      <Stack.Screen name="smart/[type]" />
     </Stack>
   );
 }

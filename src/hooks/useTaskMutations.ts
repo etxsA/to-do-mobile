@@ -39,6 +39,16 @@ export function useDeleteTask() {
   });
 }
 
+/** Toggle completion without a list scope (smart screens span multiple lists). */
+export function useToggleTaskGlobal() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, completed }: { id: number; completed: boolean }) =>
+      setTaskCompleted(id, completed),
+    onSettled: () => invalidateTaskDomains(qc),
+  });
+}
+
 /**
  * Toggle completion with an optimistic update on the list's tasks + the "today"
  * list, rolling back on error. Drives the instant-feeling checkbox/swipe.

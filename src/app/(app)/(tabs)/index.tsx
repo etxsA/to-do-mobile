@@ -7,6 +7,7 @@ import { EmptyState } from '@/components/feedback/EmptyState';
 import { ErrorState } from '@/components/feedback/ErrorState';
 import { LoadingState } from '@/components/feedback/LoadingState';
 import { AppHeader } from '@/components/layout/AppHeader';
+import { SmartCardsRow } from '@/components/lists/SmartCardsRow';
 import { TaskListCard } from '@/components/lists/TaskListCard';
 import { DueTodayItem } from '@/components/tasks/DueTodayItem';
 import { Heading } from '@/components/ui/heading';
@@ -30,6 +31,8 @@ export default function DashboardScreen() {
         <Heading className="text-[34px] leading-[42px] text-brand-ink">Your Atelier</Heading>
         <Text className="text-[18px] text-brand-muted">Focus on what matters today.</Text>
       </VStack>
+
+      <SmartCardsRow />
 
       {today.length > 0 ? (
         <VStack space="sm" className="mt-1">
